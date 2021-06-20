@@ -15,3 +15,11 @@ You can find the Docker image at https://hub.docker.com/repository/docker/thaibe
 ** Demo
  Please check out the demo at http://52.184.9.81:8000/
   
+** TBD
+   - [ ] Scrape from more sources.
+   - [ ] CI.
+   - [ ] Proper design with clickable links.
+   - [ ] API Pagination.
+   - [ ] Add gzip compression to Rocket.
+   - [ ] Consider migration to Actix.
+ 
