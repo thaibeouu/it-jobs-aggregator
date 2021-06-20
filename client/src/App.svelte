@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount } from "svelte";
-  import { apiData, posts } from "./store.ts";
+  import { apiData, posts } from "./store";
   import Card, {
     Content,
     PrimaryAction,
@@ -13,8 +13,9 @@
   import Button, { Label } from "@smui/button";
   import IconButton, { Icon } from "@smui/icon-button";
 
+  const baseUrl = !isProduction ? "http://localhost:8000/api/" : "/api/";
   onMount(async () => {
-    fetch("http://localhost:8000/api", {
+    fetch(baseUrl, {
       mode: "cors",
       headers: {
         "Content-Type": "application/json",
