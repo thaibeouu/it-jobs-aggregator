@@ -1,0 +1,2 @@
+[default.databases.diesel]
+url = "db/db.sqlite"
