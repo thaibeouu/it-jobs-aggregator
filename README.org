@@ -1,0 +1,17 @@
+#+TITLE:     Remote Non-US IT Jobs Aggregator
+#+SUBTITLE:  Quick reference card
+#+AUTHOR:    Thai Vu
+#+EMAIL:     (concat "thai.vh" at-sign "live.com")
+#+DESCRIPTION: Sample demo
+#+KEYWORDS:  org-mode, rust, rocket, svelte
+#+LANGUAGE:  en
+
+** Summary
+   This is a sample project for scraping and showing remote (non-US) IT jobs, powered by Rust + Rocket and Svelte.
+
+** Deployment
+You can find the Docker image at https://hub.docker.com/repository/docker/thaibeouu/it-job-aggs
+
+** Demo
+ Please check out the demo at http://52.184.9.81:8000/
+  
