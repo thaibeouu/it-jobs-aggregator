@@ -32,15 +32,6 @@
   });
 </script>
 
-<link
-  href="https://fonts.googleapis.com/icon?family=Material+Icons"
-  rel="stylesheet"
-/>
-<link
-  rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/svelte-material-ui@4.0.0/bare.min.css"
-/>
-
 <main>
   <h1>Remote Non-US IT Jobs</h1>
   <div class="card-display">
@@ -75,8 +66,8 @@
                 aria-label="Add to favorites"
                 title="Add to favorites"
               >
-                <Icon class="material-icons" on>favorite</Icon>
-                <Icon class="material-icons">favorite_border</Icon>
+                <Icon class="material-icons">favorite</Icon>
+                <Icon class="material-icons" on>favorite_border</Icon>
               </IconButton>
               <IconButton class="material-icons" title="Share">share</IconButton
               >
@@ -95,7 +86,7 @@
   main {
     text-align: center;
     padding: 1em;
-    max-width: 240px;
+    max-width: 800px;
     margin: 0 auto;
   }
 
@@ -112,7 +103,6 @@
     min-height: 200px;
     width: 380px;
     max-width: 100%;
-    overflow-x: auto;
     background-color: var(--mdc-theme-background, #f8f8f8);
     border: 1px solid
       var(--mdc-theme-text-hint-on-background, rgba(0, 0, 0, 0.1));
