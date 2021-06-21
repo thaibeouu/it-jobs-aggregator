@@ -23,3 +23,5 @@ You can find the Docker image at https://hub.docker.com/repository/docker/thaibe
    - [ ] Add gzip compression to Rocket.
    - [ ] Consider migration to Actix.
  
+*** Attribution.
+    - Thanks to https://www.svgbackgrounds.com for the brilliant SVGs!
