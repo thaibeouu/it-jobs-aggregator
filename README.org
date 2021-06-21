@@ -16,7 +16,7 @@ You can find the Docker image at https://hub.docker.com/repository/docker/thaibe
  Please check out the demo at http://52.184.9.81:8000/
   
 ** TBD
-   - [ ] Basic searching.
+   - [X] Basic searching.
    - [ ] Scrape from more sources.
      + [ ] We Work Remotely?
    - [ ] CI.

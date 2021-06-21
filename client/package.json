@@ -17,6 +17,7 @@
     "@smui/card": "^4.2.0",
     "@smui/icon-button": "^4.2.0",
     "@smui/layout-grid": "^4.2.0",
+    "@smui/textfield": "^4.2.0",
     "@tsconfig/svelte": "^2.0.1",
     "prettier": "^2.3.1",
     "prettier-plugin-svelte": "^2.3.1",

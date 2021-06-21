@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount } from "svelte";
-  import { apiData, posts } from "./store";
+  import { apiData, posts, term, filtered } from "./store";
   import Card, {
     Content,
     PrimaryAction,
@@ -13,6 +13,9 @@
   import LayoutGrid, { Cell } from "@smui/layout-grid";
   import Button, { Label } from "@smui/button";
   import IconButton, { Icon } from "@smui/icon-button";
+  import Textfield from "@smui/textfield";
+  import TextfieldIcon from "@smui/textfield/icon";
+  import HelperText from "@smui/textfield/helper-text/index";
 
   const baseUrl = !isProduction ? "http://localhost:8000/api/" : "/api/";
   onMount(async () => {
@@ -31,12 +34,19 @@
         return [];
       });
   });
+  let searchTerm = "";
+  $: term.set(searchTerm);
 </script>
 
 <main>
   <h1>Remote Non-US IT Jobs</h1>
+  <Textfield bind:value={searchTerm} label="Search">
+    <TextfieldIcon class="material-icons" slot="leadingIcon"
+      >search</TextfieldIcon
+    >
+  </Textfield>
   <LayoutGrid fixedColumnWidth>
-    {#each $posts as post, i}
+    {#each $filtered as post, i}
       <Cell>
         <div class="card-container">
           <Card>
@@ -124,6 +134,14 @@
   }
   * :global(.mdc-card) {
     background-color: #fdf5ef;
+  }
+  * :global(.smui-text-field--standard .mdc-line-ripple::after) {
+    border-bottom-color: var(--mdc-theme-primary, #d84d1f);
+  }
+  *
+    :global(.mdc-text-field--focused:not(.mdc-text-field--disabled)
+      .mdc-floating-label) {
+    color: var(--mdc-theme-primary, #d84d1f);
   }
   * :global(.card-media-16x9-0) {
     background-color: #ee5522;

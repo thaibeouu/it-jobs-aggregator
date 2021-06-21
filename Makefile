@@ -9,5 +9,5 @@ dev:
 	make client-dev
 
 publish:
-	docker build . | grep "Successfully built" | awk '{ print $NF }' | xargs -I@ docker image tag @ thaibeouu/it-job-aggs:latest
-	docker push thaibeouu/it-job-aggs:latest
+	docker build . | grep "Successfully built" | awk '{ print $NF }' | xargs -I{} docker image tag {} "thaibeouu/it-job-aggs:latest"
+	docker push "thaibeouu/it-job-aggs:latest"
