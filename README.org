@@ -10,7 +10,7 @@
    This is a sample project for scraping and showing remote (non-US) IT jobs, powered by Rust + Rocket and Svelte.
 
 ** Screenshots
-[[https://user-images.githubusercontent.com/77605300/122750996-6928db00-d2b9-11eb-9831-e3845af6f3af.png]]
+[[https://user-images.githubusercontent.com/6880960/122759728-79928300-d2c4-11eb-84c0-d60655fa672b.png]]
 
 ** Deployment
 You can find the Docker image at https://hub.docker.com/repository/docker/thaibeouu/it-job-aggs
