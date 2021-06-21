@@ -35,23 +35,38 @@
       });
   });
   let searchTerm = "";
-  $: term.set(searchTerm);
+  let timer;
+
+  const debounce = (v) => {
+    if (v === "") {
+      $: term.set(v);
+    } else {
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+        $: term.set(v);
+      }, 200);
+    }
+  };
 </script>
 
 <main>
   <h1>Remote Non-US IT Jobs</h1>
-  <Textfield bind:value={searchTerm} label="Search">
+  <Textfield
+    bind:value={searchTerm}
+    on:keyup={({ target: { value } }) => debounce(value)}
+    label="Search"
+  >
     <TextfieldIcon class="material-icons" slot="leadingIcon"
       >search</TextfieldIcon
     >
   </Textfield>
   <LayoutGrid fixedColumnWidth>
-    {#each $filtered as post, i}
+    {#each $filtered as post}
       <Cell>
         <div class="card-container">
           <Card>
             <PrimaryAction>
-              <Media class="card-media-16x9-{i % 4}" aspectRatio="16x9" />
+              <Media class="card-media-16x9-{post.id % 4}" aspectRatio="16x9" />
               <Content class="mdc-typography--body2">
                 <h2
                   class="mdc-typography--headline6"
