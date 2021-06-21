@@ -16,14 +16,13 @@ You can find the Docker image at https://hub.docker.com/repository/docker/thaibe
  Please check out the demo at http://52.184.9.81:8000/
   
 ** TBD
-*** TODO Scrape from more sources.
-    + [ ] We Work Remotely?
-*** TODO CI.
-*** DONE Proper design with clickable links.
-    CLOSED: [2021-06-21 Mon 14:42]
-*** TODO API Pagination.
-*** TODO Add gzip compression to Rocket.
-*** TODO Consider migration to Actix.
- 
-*** Attribution.
+   - [ ] Scrape from more sources.
+     + [ ] We Work Remotely?
+   - [ ] CI.
+   - [X] Proper design with clickable links.
+   - [ ] API Pagination.
+   - [ ] Add gzip compression to Rocket.
+   - [ ] Consider migration to Actix.
+     
+**** Attribution.
     - Thanks to https://www.svgbackgrounds.com for the brilliant SVGs!
