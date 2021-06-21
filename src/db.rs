@@ -73,7 +73,7 @@ async fn scrape_remoteok(i: &i32) -> Result<Vec<Post>, Box<dyn std::error::Error
     let url = format!(
         "{}/?pagination={}&worldwide=true",
         base_url,
-        duration.as_secs() as i32 - (36000 * i)
+        duration.as_secs() as i32 - (60000 * i)
     );
     let response = reqwest::get(&url).await?.text().await?;
     let document = Document::from(response.as_str());
@@ -85,14 +85,7 @@ async fn scrape_remoteok(i: &i32) -> Result<Vec<Post>, Box<dyn std::error::Error
         .collect();
     let urls: Vec<String> = document
         .find(Attr("itemprop", "title"))
-        .map(|x| {
-            x.parent()
-                .unwrap()
-                .attr("href")
-                .clone()
-                .unwrap()
-                .to_string()
-        })
+        .map(|x| x.parent().unwrap().attr("href").unwrap().to_string())
         .collect();
     let companies: Vec<String> = document
         .find(Attr("itemprop", "name"))
