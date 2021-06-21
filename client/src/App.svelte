@@ -45,7 +45,7 @@
               <Content class="mdc-typography--body2">
                 <h2
                   class="mdc-typography--headline6"
-                  style="margin: 0; min-height: 66px"
+                  style="margin: 0; min-height: 66px; line-height: 1.2em"
                 >
                   <a href={post.url}>
                     {post.title}
@@ -111,11 +111,8 @@
     display: inline-flex;
     align-items: center;
     min-height: 200px;
-    width: 380px;
+    width: 360px;
     max-width: 100%;
-    background-color: var(--mdc-theme-background, #f8f8f8);
-    border: 1px solid
-      var(--mdc-theme-text-hint-on-background, rgba(0, 0, 0, 0.1));
     margin-right: 20px;
     margin-bottom: 20px;
   }
@@ -124,6 +121,9 @@
     main {
       max-width: none;
     }
+  }
+  * :global(.mdc-card) {
+    background-color: #fdf5ef;
   }
   * :global(.card-media-16x9-0) {
     background-color: #ee5522;
