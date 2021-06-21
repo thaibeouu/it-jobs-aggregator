@@ -675,6 +675,7 @@ version = "0.1.0"
 dependencies = [
  "diesel",
  "diesel_migrations",
+ "itertools",
  "reqwest",
  "rocket",
  "rocket_cors",
@@ -682,6 +683,15 @@ dependencies = [
  "select",
  "serde",
  "tokio",
+]
+
+[[package]]
+name = "itertools"
+version = "0.10.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "69ddb889f9d0d08a67338271fa9b62996bc788c7796a5c18cf057420aaed5eaf"
+dependencies = [
+ "either",
 ]
 
 [[package]]

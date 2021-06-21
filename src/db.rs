@@ -1,4 +1,5 @@
 use self::diesel::prelude::*;
+use itertools::Itertools;
 use rocket::fairing::AdHoc;
 use rocket::response::{status::Created, Debug};
 use rocket::serde::{json::Json, Deserialize, Serialize};
@@ -21,6 +22,7 @@ struct Post {
     id: Option<i32>,
     title: String,
     text: String,
+    url: String,
     #[serde(skip_deserializing)]
     published: bool,
 }
@@ -29,15 +31,16 @@ table! {
     posts (id) {
         id -> Nullable<Integer>,
         title -> Text,
+        url -> Text,
         text -> Text,
         published -> Bool,
     }
 }
 
 #[get("/scrape")]
-async fn scrape(db: Db) -> Result<Json<&'static str>> {
+async fn scrape(db: Db) -> Result<Json<bool>> {
     let mut handles: std::vec::Vec<_> = Vec::new();
-    for i in 0..6 {
+    for i in 0..8 {
         let job = tokio::spawn(async move { scrape_remoteok(&i).await });
         handles.push(job);
     }
@@ -48,10 +51,11 @@ async fn scrape(db: Db) -> Result<Json<&'static str>> {
     }
     let flattened_results: Vec<Post> = results
         .into_iter()
-        .map(|x| -> Result<Vec<Post>, Box<_>> { x.unwrap() })
+        .map(|x| -> Result<Vec<Post>, Box<_>> { x? })
         .map(|x| x.unwrap())
         .flatten()
-        .collect::<Vec<Post>>();
+        .unique_by(|p| format!("{}{}", p.title, p.text))
+        .collect();
     db.run(move |conn| diesel::delete(posts::table).execute(conn))
         .await?;
     db.run(move |conn| {
@@ -60,14 +64,12 @@ async fn scrape(db: Db) -> Result<Json<&'static str>> {
             .execute(conn)
     })
     .await?;
-    Ok(Json(r#"{"success":"true"}"#))
+    Ok(Json(true))
 }
 
 async fn scrape_remoteok(i: &i32) -> Result<Vec<Post>, Box<dyn std::error::Error + Send + Sync>> {
     let base_url = "https://remoteok.io";
-    let duration = SystemTime::now()
-        .duration_since(SystemTime::UNIX_EPOCH)
-        .unwrap();
+    let duration = SystemTime::now().duration_since(SystemTime::UNIX_EPOCH)?;
     let url = format!(
         "{}/?pagination={}&worldwide=true",
         base_url,
@@ -81,6 +83,17 @@ async fn scrape_remoteok(i: &i32) -> Result<Vec<Post>, Box<dyn std::error::Error
         .find(Attr("itemprop", "title"))
         .map(|x| x.first_child().unwrap().text())
         .collect();
+    let urls: Vec<String> = document
+        .find(Attr("itemprop", "title"))
+        .map(|x| {
+            x.parent()
+                .unwrap()
+                .attr("href")
+                .clone()
+                .unwrap()
+                .to_string()
+        })
+        .collect();
     let companies: Vec<String> = document
         .find(Attr("itemprop", "name"))
         .map(|x| x.first_child().unwrap().text())
@@ -90,6 +103,7 @@ async fn scrape_remoteok(i: &i32) -> Result<Vec<Post>, Box<dyn std::error::Error
             title: titles.get(i).unwrap().to_string(),
             text: companies.get(i).unwrap().to_string(),
             published: true,
+            url: format!("{}{}", base_url, urls.get(i).unwrap().to_string()),
             id: None,
         };
         results.push(job)
